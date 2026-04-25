@@ -1,9 +1,9 @@
 @layer theme {
   :root {
     /* Primary Navy Blue color scheme for academic library */
-    --color-primary: #1e3a8a;
-    --color-primary-light: #3b82f6;
-    --color-primary-dark: #1e40af;
+    --color-primary: #092148;
+    --color-primary-light: #2858A6;
+    --color-primary-dark: #2858A6;
     
     /* Background colors */
     --color-background: #ffffff;

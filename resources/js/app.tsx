@@ -1,19 +1,31 @@
-import { createInertiaApp } from '@inertiajs/react'
-import { createRoot } from 'react-dom/client'
-import { Toaster } from 'sonner'
-import '/resources/css/app.css'
+import '../css/app.css';
+import './bootstrap';
+
+import { createInertiaApp } from '@inertiajs/react';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createRoot } from 'react-dom/client';
+import { Toaster } from 'sonner';
+
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
-  resolve: (name) => {
-    const pages = import.meta.glob('./Pages/**/*.tsx', { eager: true }) as any
-    return pages[`./Pages/${name}.tsx`]
-  },
-  setup({ el, App, props }) {
-    createRoot(el).render(
-      <>
-        <App {...props} />
-        <Toaster position="top-center" />
-      </>
-    )
-  },
-})
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) =>
+        resolvePageComponent(
+            `./Pages/${name}.tsx`,
+            import.meta.glob('./Pages/**/*.tsx'),
+        ),
+    setup({ el, App, props }) {
+        const root = createRoot(el);
+
+        root.render(
+            <>
+                <App {...props} />
+                <Toaster position="top-center" />
+            </>
+        );
+    },
+    progress: {
+        color: '#4B5563',
+    },
+});

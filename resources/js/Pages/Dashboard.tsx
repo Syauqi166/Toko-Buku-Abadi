@@ -29,7 +29,7 @@ interface DashboardProps {
 // Icon mapping berdasarkan index
 // ================================
 
-const STAT_ICONS = [BookOpen, TrendingUp, Users];
+const STAT_ICONS = [BookOpen, TrendingUp];
 
 // ================================
 // Komponen Utama
@@ -41,7 +41,7 @@ export default function Dashboard({ stats, recentBooks }: DashboardProps) {
       <div className="p-6 lg:p-8">
 
         {/* Hero Section with Welcome & Search */}
-        <div className="relative bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] rounded-2xl shadow-lg p-8 lg:p-12 mb-8 overflow-hidden">
+        <div className="relative bg-gradient-to-r from-[#092148] to-[#2858A6] rounded-2xl shadow-lg p-8 lg:p-12 mb-8 overflow-hidden">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -64,11 +64,11 @@ export default function Dashboard({ stats, recentBooks }: DashboardProps) {
                 <input
                   type="text"
                   placeholder="Cari judul buku di sini..."
-                  className="flex-1 px-4 py-3 text-gray-900 focus:outline-none"
+                  className="flex-1 px-4 py-3 text-gray-900 focus:outline-none border-0 outline-none ring-0 focus:ring-0"
                 />
                 <Link
                   href="/pencarian-buku"
-                  className="px-6 py-3 bg-[#1e3a8a] text-white rounded-lg hover:bg-[#1e40af] transition-colors flex items-center gap-2 font-medium"
+                  className="px-6 py-3 bg-[#092148] text-white rounded-lg hover:bg-[#2858A6] transition-colors flex items-center gap-2 font-medium"
                 >
                   <Search className="w-5 h-5" />
                   Cari
@@ -107,7 +107,7 @@ export default function Dashboard({ stats, recentBooks }: DashboardProps) {
             <h2 className="text-2xl font-semibold text-gray-900">Buku Terbaru</h2>
             <Link
               href="/pencarian-buku"
-              className="text-[#1e3a8a] hover:text-[#1e40af] font-medium text-sm"
+              className="text-[#092148] hover:text-[#2858A6] font-medium text-sm"
             >
               Lihat Semua →
             </Link>

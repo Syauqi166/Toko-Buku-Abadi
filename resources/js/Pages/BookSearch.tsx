@@ -90,7 +90,7 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
         <div className="max-w-7xl mx-auto">
 
           {/* Hero Section with Search */}
-          <div className="relative bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] rounded-2xl shadow-lg p-8 lg:p-12 mb-8 overflow-hidden">
+          <div className="relative bg-gradient-to-r from-[#092148] to-[#2858A6] rounded-2xl shadow-lg p-8 lg:p-12 mb-8 overflow-hidden">
             <div
               className="absolute inset-0 opacity-10"
               style={{
@@ -120,7 +120,7 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
                   <button
                     onClick={handleSearch}
                     disabled={isLoading}
-                    className="px-6 py-3 bg-[#1e3a8a] text-white rounded-lg hover:bg-[#1e40af] transition-colors flex items-center gap-2 font-medium disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-[#092148] text-white rounded-lg hover:bg-[#2858A6] transition-colors flex items-center gap-2 font-medium disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     <Search className={`w-5 h-5 ${isLoading ? "animate-spin" : ""}`} />
                     {isLoading ? "Mencari..." : "Cari"}
@@ -163,7 +163,7 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
             {/* Loading overlay */}
             {isLoading && (
               <div className="flex justify-center py-12">
-                <div className="w-10 h-10 border-4 border-[#1e3a8a] border-t-transparent rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-[#092148] border-t-transparent rounded-full animate-spin" />
               </div>
             )}
 
@@ -227,7 +227,7 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
                     dangerouslySetInnerHTML={{ __html: link.label }}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       link.active
-                        ? "bg-[#1e3a8a] text-white cursor-default"
+                        ? "bg-[#092148] text-white cursor-default"
                         : link.url
                         ? "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                         : "bg-white border border-gray-200 text-gray-400 cursor-not-allowed"
