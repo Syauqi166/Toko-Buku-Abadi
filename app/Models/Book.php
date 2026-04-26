@@ -11,6 +11,7 @@ class Book extends Model
         'author', 
         'year',
         'cover',
+        'description',
         'status',
     ];
 }

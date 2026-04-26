@@ -19,4 +19,14 @@ class BookController extends Controller
             'searchQuery' => $request->q ?? '',
         ]);
     }
+
+        public function searchDropdown(Request $request)
+    {
+        $books = Book::where('title', 'like', '%' . $request->q . '%')
+            ->orWhere('author', 'like', '%' . $request->q . '%')
+            ->take(6)
+            ->get(['id', 'title', 'author', 'cover', 'status']);
+
+        return response()->json($books);
+    }
 }

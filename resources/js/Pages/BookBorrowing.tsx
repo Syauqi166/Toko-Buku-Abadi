@@ -44,7 +44,7 @@ export default function BookBorrowing({ books }: BookBorrowingProps) {
   // ================================
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
-    setIsSearching(true);
+    setIsSearching(false);
     setShowDropdown(false);
     try {
       const res  = await fetch(`/api/books/search?q=${encodeURIComponent(searchQuery)}`);

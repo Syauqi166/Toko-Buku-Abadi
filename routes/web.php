@@ -7,6 +7,8 @@ use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BookDetailController;
+use App\Http\Controllers\BookController;
 
 // Halaman publik
 Route::get('/', [DashboardController::class, 'index']);
@@ -31,3 +33,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/peminjaman-buku', [BorrowingController::class, 'index'])->name('borrowing.index');
 Route::get('/riwayat', [HistoryController::class, 'index'])->name('history.index');
 Route::get('/api/books/search', [BorrowingController::class, 'search']);
+
+// Search dropdown (publik)
+Route::get('/api/books/dropdown', [BookController::class, 'searchDropdown']);
+
+// Detail buku (publik)
+Route::get('/buku/{book}', [BookDetailController::class, 'show'])->name('book.detail');
