@@ -39,3 +39,5 @@ Route::get('/api/books/dropdown', [BookController::class, 'searchDropdown']);
 
 // Detail buku (publik)
 Route::get('/buku/{book}', [BookDetailController::class, 'show'])->name('book.detail');
+
+Route::get('/pencarian-buku', [BookController::class, 'index'])->name('books.index');

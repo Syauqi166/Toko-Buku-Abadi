@@ -23,7 +23,7 @@ class DashboardController extends Controller
                     'color' => 'bg-green-500',
                 ],
             ],
-            'recentBooks' => Book::latest()->take(8)->get(),
+            'recentBooks' => Book::latest()->take(4)->get(),
         ]);
     }
 }

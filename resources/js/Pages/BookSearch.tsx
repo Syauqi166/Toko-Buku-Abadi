@@ -115,14 +115,14 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 px-4 py-3 text-gray-900 focus:outline-none"
+                    className="flex-1 px-4 py-3 text-gray-900 focus:outline-none border-0 outline-none ring-0 focus:ring-0"
                   />
                   <button
                     onClick={handleSearch}
                     disabled={isLoading}
                     className="px-6 py-3 bg-[#092148] text-white rounded-lg hover:bg-[#2858A6] transition-colors flex items-center gap-2 font-medium disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    <Search className={`w-5 h-5 ${isLoading ? "animate-spin" : ""}`} />
+                    <Search className={`w-5 h-5`} />
                     {isLoading ? "Mencari..." : "Cari"}
                   </button>
                 </div>

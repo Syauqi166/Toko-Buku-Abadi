@@ -77,7 +77,11 @@ export default function Dashboard({ stats, recentBooks }: DashboardProps) {
 
   const handleSearch = () => {
     setShowDropdown(false);
-    router.visit(`/pencarian-buku?q=${encodeURIComponent(query)}`);
+    if (query.trim()) {
+      router.visit(`/pencarian-buku?q=${encodeURIComponent(query)}`);
+    } else {
+      router.visit('/pencarian-buku');
+    }
   };
 
   return (
@@ -153,7 +157,7 @@ export default function Dashboard({ stats, recentBooks }: DashboardProps) {
                   ))}
                   {/* Lihat semua hasil */}
                   <button
-                    onClick={handleSearch}
+                    onMouseDown={() => handleSearch()} // ← pakai onMouseDown bukan onClick
                     className="w-full px-4 py-3 text-center text-sm text-[#092148] font-medium hover:bg-blue-50 transition-colors"
                   >
                     Lihat semua hasil pencarian →
