@@ -2,7 +2,9 @@ export interface User {
     id_pengguna: string;
     username: string;
     nama: string;
+    name: string;
     email: string;
+    email_verified_at: string | null;
 }
 
 export type PageProps<
