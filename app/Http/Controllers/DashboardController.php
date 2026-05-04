@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Borrowing;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -19,11 +18,11 @@ class DashboardController extends Controller
                 ],
                 [
                     'label' => 'Buku Dipinjam',
-                    'value' => (string) Book::where('status', 'Dipinjam')->count(),
+                    'value' => (string) Book::whereColumn('stok_avail', '<', 'stok')->count(),
                     'color' => 'bg-green-500',
                 ],
             ],
-            'recentBooks' => Book::latest()->take(4)->get(),
+            'recentBooks' => Book::orderByDesc('id_buku')->take(4)->get(),
         ]);
     }
 }

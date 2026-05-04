@@ -1,26 +1,29 @@
 import { useState } from "react";
 import { router } from "@inertiajs/react";
-import { BookOpen, Mail, Lock, User, ArrowLeft } from "lucide-react";
+import { Mail, Lock, User, AtSign, ArrowLeft } from "lucide-react";
 
 interface RegisterProps {
   errors?: {
-    name?: string;
+    username?: string;
+    nama?: string;
     email?: string;
     password?: string;
   };
 }
 
 export default function Register({ errors }: RegisterProps) {
-  const [name, setName]                     = useState("");
-  const [email, setEmail]                   = useState("");
-  const [password, setPassword]             = useState("");
+  const [username, setUsername]               = useState("");
+  const [nama, setNama]                       = useState("");
+  const [email, setEmail]                     = useState("");
+  const [password, setPassword]               = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [loading, setLoading]               = useState(false);
+  const [loading, setLoading]                 = useState(false);
 
   const handleRegister = () => {
     setLoading(true);
     router.post("/register", {
-      name,
+      username,
+      nama,
       email,
       password,
       password_confirmation: passwordConfirm,
@@ -44,21 +47,40 @@ export default function Register({ errors }: RegisterProps) {
 
         {/* Form Register */}
         <div className="space-y-4">
+
+          {/* Username */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <div className="relative">
+              <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="username unik kamu"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#092148]"
+              />
+            </div>
+            {errors?.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
+          </div>
+
+          {/* Nama Lengkap */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
                 placeholder="Nama lengkap kamu"
                 className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#092148]"
               />
             </div>
-            {errors?.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            {errors?.nama && <p className="text-red-500 text-xs mt-1">{errors.nama}</p>}
           </div>
 
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <div className="relative">
@@ -74,6 +96,7 @@ export default function Register({ errors }: RegisterProps) {
             {errors?.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
 
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <div className="relative">
@@ -89,6 +112,7 @@ export default function Register({ errors }: RegisterProps) {
             {errors?.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
           </div>
 
+          {/* Konfirmasi Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
             <div className="relative">
@@ -104,7 +128,6 @@ export default function Register({ errors }: RegisterProps) {
             </div>
           </div>
 
-          {/* Tombol Register */}
           <button
             onClick={handleRegister}
             disabled={loading}
@@ -114,7 +137,6 @@ export default function Register({ errors }: RegisterProps) {
           </button>
         </div>
 
-        {/* Kembali ke Login */}
         <button
           onClick={() => router.visit("/login")}
           className="w-full mt-4 py-2.5 text-gray-500 hover:text-gray-700 transition-colors text-sm flex items-center justify-center gap-1"

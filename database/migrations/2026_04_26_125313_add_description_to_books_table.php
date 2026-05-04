@@ -6,20 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::table('books', function (Blueprint $table) {
-            $table->text('description')->nullable()->after('cover');
+        Schema::create('detail_peminjaman', function (Blueprint $table) {
+            $table->id('id_detail');
+            $table->string('id_peminjaman', 10);
+            $table->string('id_buku', 10);
+            $table->date('tanggal_kembali')->nullable();
+            $table->enum('status', ['dipinjam', 'dikembalikan'])->default('dipinjam');
+            $table->foreign('id_peminjaman')
+                  ->references('id_peminjaman')
+                  ->on('peminjaman');
+            $table->foreign('id_buku')
+                  ->references('id_buku')
+                  ->on('buku');
         });
     }
 
     public function down(): void
     {
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn('description');
-        });
+        Schema::dropIfExists('detail_peminjaman');
     }
 };

@@ -9,12 +9,12 @@ class BookDetailController extends Controller
 {
     public function show(Book $book)
     {
-        $sameAuthor = Book::where('author', $book->author)
-            ->where('id', '!=', $book->id)
+        $sameAuthor = Book::where('penulis', $book->penulis)
+            ->where('id_buku', '!=', $book->id_buku)
             ->take(6)
             ->get();
 
-        $otherBooks = Book::where('author', '!=', $book->author)
+        $otherBooks = Book::where('penulis', '!=', $book->penulis)
             ->inRandomOrder()
             ->take(6)
             ->get();

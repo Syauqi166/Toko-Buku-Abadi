@@ -8,7 +8,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const { url, props } = usePage();
-  const user = (props.auth as any)?.user as { name: string; email: string } | undefined;
+  const user = (props.auth as any)?.user as { nama: string; email: string } | undefined;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const menuItems = [
@@ -49,26 +49,23 @@ export default function Layout({ children }: LayoutProps) {
             <div className="flex items-center gap-3">
               {user ? (
                 <>
-                  {/* Info user saat sudah login */}
                   <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg">
                     <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                       <User className="w-5 h-5" />
                     </div>
                     <div className="hidden sm:block">
-                      <p className="text-sm font-medium">{user.name}</p>
+                      <p className="text-sm font-medium">{user.nama}</p>
                       <p className="text-xs text-blue-200">Anggota</p>
                     </div>
                   </div>
-                  {/* Tombol Logout */}
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 px-3 py-2  hover:bg-white/20 rounded-lg text-sm transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-white/20 rounded-lg text-sm transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
                 </>
               ) : (
-                /* Tombol Login saat belum login */
                 <Link
                   href="/login"
                   className="flex items-center gap-2 px-4 py-2 bg-white text-[#092148] rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
@@ -101,7 +98,6 @@ export default function Layout({ children }: LayoutProps) {
                 return (
                   <li key={item.path}>
                     {requiresAuth && !user ? (
-                      // Menu yang butuh login tapi belum login
                       <Link
                         href="/login"
                         onClick={() => setIsSidebarOpen(false)}
@@ -132,7 +128,6 @@ export default function Layout({ children }: LayoutProps) {
               })}
             </ul>
 
-            {/* Info login di sidebar kalau belum login */}
             {!user && (
               <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
                 <p className="text-xs text-[#092148] text-center mb-3">
@@ -149,7 +144,6 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
         </aside>
 
-        {/* Overlay untuk mobile */}
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-30 lg:hidden"
@@ -157,7 +151,6 @@ export default function Layout({ children }: LayoutProps) {
           />
         )}
 
-        {/* Main Content */}
         <main className="flex-1 lg:ml-0">
           {children}
         </main>

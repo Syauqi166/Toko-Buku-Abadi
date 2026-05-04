@@ -1,19 +1,14 @@
 import { useState } from "react";
 import { Search, BookOpen } from "lucide-react";
-import { router, usePage } from "@inertiajs/react";
+import { router, Link } from "@inertiajs/react";
 import Layout from "@/Components/Layout";
 
-// ================================
-// Interface / Type Definitions
-// ================================
-
 interface Book {
-  id: number;
-  title: string;
-  author: string;
-  year: number;
-  cover: string | null;
-  status: "Tersedia" | "Dipinjam";
+  id_buku: string;
+  judul: string;
+  penulis: string;
+  cover_img_url: string | null;
+  stok_avail: number;
 }
 
 interface PaginationLink {
@@ -35,26 +30,19 @@ interface BookSearchProps {
   searchQuery: string;
 }
 
-// ================================
-// Komponen Utama
-// ================================
-
 export default function BookSearch({ books, searchQuery }: BookSearchProps) {
-  const [query, setQuery] = useState(searchQuery ?? "");
+  const [query, setQuery]     = useState(searchQuery ?? "");
   const [isLoading, setIsLoading] = useState(false);
 
-  // ================================
-  // Handle Search — kirim ke Laravel
-  // ================================
   const handleSearch = () => {
     setIsLoading(true);
     router.get(
       "/pencarian-buku",
       { q: query },
       {
-        preserveState: true,   // jaga scroll position
+        preserveState: true,
         preserveScroll: true,
-        only: ["books", "searchQuery"], // hanya refresh data buku
+        only: ["books", "searchQuery"],
         onFinish: () => setIsLoading(false),
       }
     );
@@ -64,9 +52,6 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
     if (e.key === "Enter") handleSearch();
   };
 
-  // ================================
-  // Handle Pagination
-  // ================================
   const handlePageChange = (url: string | null) => {
     if (!url) return;
     setIsLoading(true);
@@ -106,12 +91,11 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
                 Cari dan jelajahi koleksi buku perpustakaan kami
               </p>
 
-              {/* Search Bar */}
               <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-lg shadow-xl p-2 flex gap-2">
                   <input
                     type="text"
-                    placeholder="Cari judul buku di sini..."
+                    placeholder="Cari judul atau penulis buku..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
@@ -122,7 +106,7 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
                     disabled={isLoading}
                     className="px-6 py-3 bg-[#092148] text-white rounded-lg hover:bg-[#2858A6] transition-colors flex items-center gap-2 font-medium disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    <Search className={`w-5 h-5`} />
+                    <Search className="w-5 h-5" />
                     {isLoading ? "Mencari..." : "Cari"}
                   </button>
                 </div>
@@ -171,44 +155,44 @@ export default function BookSearch({ books, searchQuery }: BookSearchProps) {
             {!isLoading && books.data.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {books.data.map((book) => (
-                  <div
-                    key={book.id}
+                  <Link
+                    key={book.id_buku}
+                    href={`/buku/${book.id_buku}`}
                     className="group bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
                   >
                     <div className="relative aspect-[3/4] bg-gray-100">
                       <img
                         src={
-                          book.cover ??
-                          `https://placehold.co/300x400?text=${encodeURIComponent(book.title)}`
+                          book.cover_img_url ??
+                          `https://placehold.co/300x400?text=${encodeURIComponent(book.judul)}`
                         }
-                        alt={book.title}
+                        alt={book.judul}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute top-2 right-2">
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            book.status === "Tersedia"
+                            book.stok_avail > 0
                               ? "bg-green-500 text-white"
                               : "bg-red-500 text-white"
                           }`}
                         >
-                          {book.status}
+                          {book.stok_avail > 0 ? "Tersedia" : "Stok Habis"}
                         </span>
                       </div>
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-gray-900 mb-1 line-clamp-1">
-                        {book.title}
+                        {book.judul}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-1">{book.author}</p>
-                      <p className="text-xs text-gray-500">Tahun: {book.year}</p>
+                      <p className="text-sm text-gray-600">{book.penulis}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
 
-            {/* Empty state awal */}
+            {/* Empty state */}
             {!isLoading && books.data.length === 0 && !hasSearched && (
               <div className="text-center py-12">
                 <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
