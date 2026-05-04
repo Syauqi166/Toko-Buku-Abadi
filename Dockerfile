@@ -29,6 +29,8 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
 
 COPY . /app
+COPY --from=assets /app/public/build ./public/build
+
 
 RUN composer dump-autoload --optimize --no-dev \
   && php artisan octane:install --server=frankenphp --no-interaction \
